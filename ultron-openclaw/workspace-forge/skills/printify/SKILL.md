@@ -79,6 +79,17 @@ pf -X POST "$BASE/shops/$SHOP/products/$PRODUCT/publish.json" -d '{
 Then `pf "$BASE/shops/$SHOP/products/$PRODUCT.json"` until `external.handle` shows the
 Etsy listing URL. If publishing fails, report the exact error to Ultron.
 
+## List and edit existing products
+
+```bash
+pf "$BASE/shops/$SHOP/products.json?page=1&limit=50"     # all products, paginated
+pf "$BASE/shops/$SHOP/products/$PRODUCT.json"            # one product
+pf -X PUT "$BASE/shops/$SHOP/products/$PRODUCT.json" -d @changes.json   # e.g. {"title": "...", "tags": [...]}
+```
+
+After a PUT on a published product, run the publish call below again so the change syncs
+to Etsy. Save the old title/tags/description to the ledger before changing them.
+
 ## Orders (for Ultron's daily numbers)
 
 ```bash
