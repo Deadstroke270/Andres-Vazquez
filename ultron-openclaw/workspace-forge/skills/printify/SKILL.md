@@ -68,7 +68,7 @@ Prices are in cents. The response has the product `id` and `images` (mockup URLs
 Check margin before saving: price minus Printify's production + shipping cost must leave
 at least 25% after Etsy fees. If not, raise the price or tell Ultron.
 
-## Publish to Etsy (only when Ultron says APPROVED)
+## Publish to Etsy (only when Ultron says APPROVED; first publish of a NEW product only)
 
 ```bash
 pf -X POST "$BASE/shops/$SHOP/products/$PRODUCT/publish.json" -d '{
@@ -87,8 +87,11 @@ pf "$BASE/shops/$SHOP/products/$PRODUCT.json"            # one product
 pf -X PUT "$BASE/shops/$SHOP/products/$PRODUCT.json" -d @changes.json   # e.g. {"title": "...", "tags": [...]}
 ```
 
-After a PUT on a published product, run the publish call below again so the change syncs
-to Etsy. Save the old title/tags/description to the ledger before changing them.
+After a PUT on a published product, re-publish so the change syncs to Etsy, but set
+**only the fields you changed to true and everything else to false**, especially
+`"shipping_template": false` and `"images": false`. Re-publishing with `true` overwrites
+whatever was set on Etsy (a re-publish once wiped the shop's shipping profile). Save the old
+title/tags/description to the ledger before changing them.
 
 ## Orders (for Ultron's daily numbers)
 
