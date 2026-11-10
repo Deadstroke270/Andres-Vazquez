@@ -12,6 +12,8 @@ set -uo pipefail
 
 TZ_NAME="${TZ_NAME:-America/Los_Angeles}"   # override: TZ_NAME=America/Chicago bash install.sh
 CHANNEL="${CHANNEL:-telegram}"              # where Ultron's reports go
+# NO_RESTART=1 skips the gateway restart (use when an OpenClaw agent runs this script itself).
+# Safe to run again: every step skips work that is already done.
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OC="$HOME/.openclaw"
 ENVF="$OC/.env"
@@ -103,6 +105,8 @@ ok "agents added (your existing agents, bindings and channels were not changed)"
 
 step "6/7 Load the new agents"
 if openclaw agents list 2>/dev/null | grep -qi ultron; then ok "gateway already sees ultron"
+elif [ -n "${NO_RESTART:-}" ]; then
+  warn "NO_RESTART is set: not restarting. Run 'openclaw gateway restart', then run this script again to finish scheduling"
 else
   warn "restarting the OpenClaw gateway so it loads the new agents (running chats pause for a few seconds)"
   openclaw gateway restart || warn "restart failed: run 'openclaw gateway restart' yourself"
