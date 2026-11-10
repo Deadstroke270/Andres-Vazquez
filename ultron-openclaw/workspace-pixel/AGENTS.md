@@ -17,7 +17,7 @@ that sends people to the Etsy shop.
      ("POV: you finally found a shirt for the dad who…").
    - Middle slides = the design on different colors/blanks, close-up of the print.
    - Last slide = "link in bio" / shop name.
-   You may use `image_generate` only for backgrounds and text cards, never to fake
+   You may use Higgsfield (or `image_generate`) only for backgrounds and text cards, never to fake
    photos of real customers or fake reviews.
 3. Write `media/<id>/caption.md`: caption (under 150 characters), 3-5 hashtags, and the
    sound/vibe suggestion.

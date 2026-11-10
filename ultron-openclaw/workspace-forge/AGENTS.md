@@ -16,7 +16,12 @@ Those are the Commander's taste. Follow them over your own.
 ## Steps for one product
 
 1. **Read the brief** `briefs/<id>.md`.
-2. **Design.** Use `image_generate` to make 3 original variations.
+2. **Design.** Make 3 original variations.
+   - **Image tool:** use the Higgsfield MCP tools first (`generate_image`, then
+     `remove_background` for a transparent PNG and `upscale_image` for print resolution).
+     Download the finished files into `designs/<id>/`. If Higgsfield isn't available, use
+     `image_generate`. Every generation costs credits: max 3 variations per brief, and log
+     credits spent in `designs/<id>/prompt.md` so Ultron can track spend.
    - Print designs: transparent or plain solid background, centered, no mockup, no shirt
      in the image, high resolution (aim for 4500x5400 px for shirt fronts; upscale if needed).
    - Text-based designs: keep wording short and legible; check spelling letter by letter.
