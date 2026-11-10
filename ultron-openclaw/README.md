@@ -61,6 +61,16 @@ ultron-openclaw/
 
 ## Setup
 
+**Quick install** (on the machine running OpenClaw):
+
+```bash
+cd ~/ultron-download && git pull && bash ultron-openclaw/install.sh
+```
+
+It backs up your config, copies files without overwriting anything, asks for missing keys,
+adds the four agents (no bindings, so your existing agents keep their channels), and
+schedules the automations. The manual steps below do the same thing by hand.
+
 1. **Accounts**
    - Etsy seller account; set up shop basics: payments, shipping profile, return policy.
    - Printify account. Connect the Etsy shop: Printify dashboard -> Manage stores -> Etsy.
