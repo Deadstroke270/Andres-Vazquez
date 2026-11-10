@@ -117,6 +117,8 @@ openclaw skills list --agent forge 2>/dev/null | grep -qi printify && ok "forge 
 
 step "7/7 Schedule Ultron's War Room (skips jobs that already exist)"
 EXISTING="$(openclaw automations list --all 2>/dev/null || true)"
+# Reports go to your chat only when TO is set (e.g. TO=123456789 for a Telegram chat id).
+if [ -n "${TO:-}" ]; then DELIVER=(--announce --channel "$CHANNEL" --to "$TO"); else DELIVER=(--no-deliver); warn "TO not set: jobs are created without chat delivery (rerun with TO=<chat id> to add it)"; fi
 add_job() { # name cron message [extra flags...]
   local name="$1" cron="$2" msg="$3"; shift 3
   if grep -qF "$name" <<<"$EXISTING"; then ok "'$name' already exists"; return; fi
@@ -125,12 +127,13 @@ add_job() { # name cron message [extra flags...]
 }
 add_job "Ultron War Room (morning)" "7 8 * * *" \
   "Morning War Room. Follow AGENTS.md section 6: read the ledger, pull orders, plan today, spawn crew jobs within the limits, write today's report and send me the morning report (with the approval batch if we're in Phase 1)." \
-  --announce --channel "$CHANNEL" --delivery-target owner
+  "${DELIVER[@]}"
 add_job "Ultron evening check" "13 19 * * *" \
-  "Evening check. Follow AGENTS.md section 6: chase unfinished crew jobs, update the ledger, queue tomorrow's approval batch. Only message me if something needs me."
+  "Evening check. Follow AGENTS.md section 6: chase unfinished crew jobs, update the ledger, queue tomorrow's approval batch. Only message me if something needs me." \
+  "${DELIVER[@]}"
 add_job "Ultron weekly review" "21 10 * * 0" \
   "Weekly review. Follow AGENTS.md section 6: what sold, what didn't, best niches, approval trend, spend vs budget, and one proposed experiment for next week. Ask before starting anything new." \
-  --thinking high --announce --channel "$CHANNEL" --delivery-target owner
+  --thinking high "${DELIVER[@]}"
 
 step "Done"
 cat <<EOF

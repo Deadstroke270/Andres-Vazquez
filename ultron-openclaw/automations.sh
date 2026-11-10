@@ -6,14 +6,16 @@ set -euo pipefail
 
 TZ_NAME="America/Chicago"      # your time zone
 CHANNEL="telegram"             # where Ultron reports
-TO="owner"                     # your chat id, or keep "owner" if your channel supports it
+TO="CHAT_ID"                   # your Telegram chat id (numbers)
+
+DELIVER=(--announce --channel "$CHANNEL" --to "$TO")
 
 openclaw automations add \
   --name "War Room (morning)" \
   --cron "7 8 * * *" --tz "$TZ_NAME" \
   --session isolated --agent ultron \
   --message "Morning War Room. Follow AGENTS.md section 6: read the ledger, pull orders, plan today, spawn crew jobs within the limits, write today's report and send me the morning report (with the approval batch if we're in Phase 1)." \
-  --announce --channel "$CHANNEL" --delivery-target "$TO"
+  "${DELIVER[@]}"
 
 openclaw automations add \
   --name "Evening check" \
@@ -26,6 +28,6 @@ openclaw automations add \
   --cron "21 10 * * 0" --tz "$TZ_NAME" \
   --session isolated --agent ultron --thinking high \
   --message "Weekly review. Follow AGENTS.md section 6: what sold, what didn't, best niches, approval trend, spend vs budget, and one proposed experiment for next week. Ask before starting anything new." \
-  --announce --channel "$CHANNEL" --delivery-target "$TO"
+  "${DELIVER[@]}"
 
 openclaw automations list
