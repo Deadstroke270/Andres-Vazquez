@@ -80,7 +80,7 @@ cat > "$PATCH" <<EOF
     entries: {
       ultron: { name: "ULTRON", workspace: "~/.openclaw/workspace-ultron", model: "anthropic/claude-opus-5-5",
                 thinkingDefault: "high", identity: { name: "ULTRON", emoji: "🤖" },
-                subagents: { allowAgents: ["nova", "forge", "pixel"], maxConcurrent: 3 } },
+                subagents: { allowAgents: ["nova", "forge", "pixel"] } },
       nova:  { name: "NOVA",  workspace: "~/.openclaw/workspace-nova",  model: "anthropic/claude-sonnet-5-5", identity: { name: "NOVA",  emoji: "🔭" } },
       forge: { name: "FORGE", workspace: "~/.openclaw/workspace-forge", model: "anthropic/claude-sonnet-5-5", identity: { name: "FORGE", emoji: "🏭" } },
       pixel: { name: "PIXEL", workspace: "~/.openclaw/workspace-pixel", model: "anthropic/claude-sonnet-5-5", identity: { name: "PIXEL", emoji: "📱" } },

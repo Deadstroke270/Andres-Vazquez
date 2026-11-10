@@ -18,7 +18,7 @@
         thinkingDefault: "high",
         identity: { name: "ULTRON", emoji: "🤖" },
         // Ultron may spawn jobs on exactly these crew agents.
-        subagents: { allowAgents: ["nova", "forge", "pixel"], maxConcurrent: 3 },
+        subagents: { allowAgents: ["nova", "forge", "pixel"] },
       },
       nova: {
         name: "NOVA",
