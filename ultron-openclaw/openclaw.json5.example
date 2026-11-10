@@ -1,0 +1,53 @@
+// Merge this into ~/.openclaw/openclaw.json (don't overwrite your existing channels/auth).
+// Key format checked against the OpenClaw docs in the openclaw/openclaw repo (docs/gateway/config-agents/).
+{
+  agents: {
+    defaults: {
+      // Forge and Pixel use the built-in image_generate tool. Needs OPENAI_API_KEY
+      // (or ChatGPT/Codex sign-in). For Nano Banana Pro / Gemini, set GEMINI_API_KEY
+      // and pick the Google image model from `openclaw models list` instead.
+      mediaModels: {
+        image: { primary: "openai/gpt-image-2", timeoutMs: 180000 },
+      },
+    },
+    entries: {
+      ultron: {
+        name: "ULTRON",
+        workspace: "~/.openclaw/workspace-ultron",
+        model: "anthropic/claude-opus-5-5",
+        thinkingDefault: "high",
+        identity: { name: "ULTRON", emoji: "🤖" },
+        // Ultron may spawn jobs on exactly these crew agents.
+        subagents: { allowAgents: ["nova", "forge", "pixel"], maxConcurrent: 3 },
+      },
+      nova: {
+        name: "NOVA",
+        workspace: "~/.openclaw/workspace-nova",
+        // Crew can run on a cheaper model. Switch to "anthropic/claude-opus-5-5" for max quality.
+        model: "anthropic/claude-sonnet-5-5",
+        identity: { name: "NOVA", emoji: "🔭" },
+      },
+      forge: {
+        name: "FORGE",
+        workspace: "~/.openclaw/workspace-forge",
+        model: "anthropic/claude-sonnet-5-5",
+        identity: { name: "FORGE", emoji: "🏭" },
+      },
+      pixel: {
+        name: "PIXEL",
+        workspace: "~/.openclaw/workspace-pixel",
+        model: "anthropic/claude-sonnet-5-5",
+        identity: { name: "PIXEL", emoji: "📱" },
+      },
+    },
+  },
+
+  // Talk to Ultron on Telegram (change channel to whatever you use).
+  bindings: [
+    { agentId: "ultron", match: { channel: "telegram" } },
+  ],
+
+  tools: {
+    agentToAgent: { allow: ["ultron", "nova", "forge", "pixel"] },
+  },
+}
