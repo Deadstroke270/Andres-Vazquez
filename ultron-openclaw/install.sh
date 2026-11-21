@@ -72,6 +72,9 @@ else
 fi
 
 step "5/7 Add the four agents to the config"
+# Keep any extra crew (e.g. canvas from install-fiverr.sh) in Ultron's spawn list: arrays replace on patch.
+ALLOW='["nova", "forge", "pixel"]'
+if openclaw config get agents.entries.canvas >/dev/null 2>&1; then ALLOW='["nova", "forge", "pixel", "canvas"]'; fi
 PATCH="$(mktemp)"
 cat > "$PATCH" <<EOF
 {
@@ -80,7 +83,7 @@ cat > "$PATCH" <<EOF
     entries: {
       ultron: { name: "ULTRON", workspace: "~/.openclaw/workspace-ultron", model: "anthropic/claude-opus-5-5",
                 thinkingDefault: "high", identity: { name: "ULTRON", emoji: "🤖" },
-                subagents: { allowAgents: ["nova", "forge", "pixel"] } },
+                subagents: { allowAgents: $ALLOW } },
       nova:  { name: "NOVA",  workspace: "~/.openclaw/workspace-nova",  model: "anthropic/claude-sonnet-5-5", identity: { name: "NOVA",  emoji: "🔭" } },
       forge: { name: "FORGE", workspace: "~/.openclaw/workspace-forge", model: "anthropic/claude-sonnet-5-5", identity: { name: "FORGE", emoji: "🏭" } },
       pixel: { name: "PIXEL", workspace: "~/.openclaw/workspace-pixel", model: "anthropic/claude-sonnet-5-5", identity: { name: "PIXEL", emoji: "📱" } },
