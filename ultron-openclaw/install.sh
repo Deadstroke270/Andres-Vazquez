@@ -119,12 +119,12 @@ openclaw agents list 2>/dev/null | grep -i -E 'ultron|nova|forge|pixel' || warn 
 openclaw skills list --agent forge 2>/dev/null | grep -qi printify && ok "forge has the printify skill" || warn "printify skill not listed for forge yet (start a new forge session or restart the gateway)"
 
 step "7/7 Schedule Ultron's War Room (skips jobs that already exist)"
-EXISTING="$(openclaw automations list --all 2>/dev/null || true)"
+EXISTING="$(openclaw automations list --all --json 2>/dev/null || true)"
 # Reports go to your chat only when TO is set (e.g. TO=123456789 for a Telegram chat id).
 if [ -n "${TO:-}" ]; then DELIVER=(--announce --channel "$CHANNEL" --to "$TO"); else DELIVER=(--no-deliver); warn "TO not set: jobs are created without chat delivery (rerun with TO=<chat id> to add it)"; fi
 add_job() { # name cron message [extra flags...]
   local name="$1" cron="$2" msg="$3"; shift 3
-  if grep -qF "$name" <<<"$EXISTING"; then ok "'$name' already exists"; return; fi
+  if grep -qF "\"$name\"" <<<"$EXISTING"; then ok "'$name' already exists"; return; fi
   openclaw automations add --name "$name" --cron "$cron" --tz "$TZ_NAME" --session isolated --agent ultron --message "$msg" "$@" \
     && ok "added '$name'" || warn "could not add '$name' (see error above)"
 }
