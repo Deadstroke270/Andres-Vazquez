@@ -108,3 +108,14 @@ schedules the automations. The manual steps below do the same thing by hand.
 - **Costs:** Opus 5.5 for Ultron and Sonnet 5.5 for the crew keep API costs down.
   Switch the crew to Opus in the config if quality matters more than cost. Etsy also
   charges a fee per listing, and the 5/day cap keeps that in check.
+
+## Fiverr department: YouTube thumbnails
+
+Adds **CANVAS** (thumbnail designer) under Ultron, plus a playbook (`factory/FIVERR-THUMBNAILS.md`)
+for launching a thumbnail gig and handling orders. You are the only one who uses fiverr.com:
+Fiverr has no seller API and bans bot messaging, so the agents prepare thumbnails and delivery
+messages, and you deliver them.
+
+```bash
+cd ~/ultron-download && git pull && bash ultron-openclaw/install-fiverr.sh
+```
