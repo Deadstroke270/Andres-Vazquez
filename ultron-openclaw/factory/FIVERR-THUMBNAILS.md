@@ -19,8 +19,9 @@ fiverr/
 
 ## Part 1 — Launch (one time)
 
-1. **Market research (Nova)** → `research/market.md`. Look at the top 20 Fiverr gigs for
-   "youtube thumbnail" and 2-3 narrower searches (e.g. travel vlog, gaming, finance,
+1. **Market research (Nova)** → `research/market.md`. Don't scrape or bot-browse fiverr.com
+   (it blocks bots and it's against its rules); use public data, search results, and screenshots
+   the Commander sends. Study the top gigs for "youtube thumbnail" and 2-3 narrower searches (e.g. travel vlog, gaming, finance,
    podcast, faceless channels). Record: price of each package, delivery time, revisions,
    review counts, what their galleries look like, and gaps (niches with demand but weak
    galleries). Recommend ONE niche to lead with, plus the general gig.
@@ -46,7 +47,8 @@ fiverr/
    anywhere you can read, remind him to send it, but never act on Fiverr yourself.
 2. **Ultron:** give it the next id (FV0001…), add a row to ORDERS.md, save files to
    `orders/<id>/`, write `brief.md`, and spawn Canvas with the brief. If the buyer said no
-   AI, stop and tell the Commander: we can't take that order.
+   AI, stop and tell the Commander: we can't take that order. Draft a polite message offering
+   a mutual cancellation for him to send.
 3. **Canvas:** delivers concepts to `orders/<id>/` (see Canvas's AGENTS.md). Ultron checks
    them against the brief and the quality bar below, then sends the Commander the images +
    `delivery.md` (a short, friendly delivery message he can paste).
@@ -79,3 +81,6 @@ isn't ready → tell the Commander at once. Fiverr deadlines beat every Etsy tas
   same image twice (Fiverr's AI rules).
 - Buyer files and channel info stay in `orders/<id>/` and are never used for anything else.
 - Agents never write to buyers or log into Fiverr. Drafts only.
+- Gig text must be honest: it may say AI tools are used and every thumbnail is reviewed before
+  delivery. It must not claim work is "designed by hand" or done by a human designer.
+- Revisions are capped (Basic 2, Standard 3, Premium 5) so one buyer can't tie up the station.
